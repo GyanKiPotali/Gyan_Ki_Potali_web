@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Real Existence!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #captcha {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background-color: #f3f3f3;
+            display: inline-block;
+            padding: 10px;
+            border: 1px solid #ccc;
+            user-select: none;
+        }
+        input {
+            margin-top: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Verify Your Real Existence!</h1>
+    <div id="captcha"></div>
+    <button onclick="generateCaptcha()">Refresh</button>
+    <br>
+    <input type="text" id="userInput" placeholder="Enter the code here">
+    <br>
+    <button onclick="checkCaptcha()">Check</button>
+    <p id="result"></p>
+    
+    <script>
+        let captchaCode = "";
+        
+        function generateCaptcha() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            captchaCode = "";
+            for (let i = 0; i < 8; i++) {
+                captchaCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById("captcha").innerText = captchaCode;
+        }
+        
+        function checkCaptcha() {
+            const userInput = document.getElementById("userInput").value;
+            if (userInput === captchaCode) {
+                document.getElementById("result").innerText = "Success! Redirecting...";
+                document.getElementById("result").style.color = "green";
+                setTimeout(() => {
+                    window.location.href = "Home.html";
+                }, 3000);
+            } else {
+                document.getElementById("result").innerText = "Invalid CAPTCHA";
+                document.getElementById("result").style.color = "red";
+            }
+        }
+        
+        window.onload = generateCaptcha;
+    </script>
+</body>
+</html>
