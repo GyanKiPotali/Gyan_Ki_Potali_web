@@ -11,14 +11,11 @@
             margin-top: 50px;
         }
         #captcha {
-            font-size: 20px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            background-color: #f3f3f3;
             display: inline-block;
             padding: 10px;
             border: 1px solid #ccc;
             user-select: none;
+            background-color: #f3f3f3;
         }
         input {
             margin-top: 10px;
@@ -49,10 +46,16 @@
         function generateCaptcha() {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             captchaCode = "";
+            let captchaHTML = "";
+            
             for (let i = 0; i < 8; i++) {
-                captchaCode += chars.charAt(Math.floor(Math.random() * chars.length));
+                let char = chars.charAt(Math.floor(Math.random() * chars.length));
+                let fontSize = Math.floor(Math.random() * 15) + 20; // Random font size between 20px and 35px
+                let rotation = Math.floor(Math.random() * 30) - 15; // Random rotation between -15 and 15 degrees
+                captchaHTML += `<span style="font-size:${fontSize}px; display:inline-block; transform:rotate(${rotation}deg);">${char}</span>`;
+                captchaCode += char;
             }
-            document.getElementById("captcha").innerText = captchaCode;
+            document.getElementById("captcha").innerHTML = captchaHTML;
         }
         
         function checkCaptcha() {
